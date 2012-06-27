@@ -95,19 +95,22 @@ class SmartLoaderCSS
 		if(ENVIRONMENT == "development")
 		{
 			$autoload_link = array();
-			$dir = opendir($this->_autoload_folder); 
-			
-			while($file = readdir($dir))
+			if(is_dir($this->_autoload_folder))
 			{
-				if($file != '.' && $file != '..' && strpos($file,".css") !== FALSE)
+				$dir = opendir($this->_autoload_folder); 
+				
+				while($file = readdir($dir))
 				{
-					array_push($autoload_link,$file);
+					if($file != '.' && $file != '..' && strpos($file,".css") !== FALSE)
+					{
+						array_push($autoload_link,$file);
+					}
 				}
+				closedir($dir);
+				
+				asort($autoload_link);
+				$this->createBaseFile($autoload_link);
 			}
-			closedir($dir);
-			
-			asort($autoload_link);
-			$this->createBaseFile($autoload_link);
 		}
 	}
 	
@@ -139,7 +142,10 @@ class SmartLoaderCSS
 
     public function loadLinks()
     {
-		echo "<link rel=\"stylesheet\" href=\"".$this->_concat_file."\" type=\"text/css\" />"."\n";
+		if(!empty($this->_concat_file))
+    	{
+	    	echo "<link rel=\"stylesheet\" href=\"".$this->_concat_file."\" type=\"text/css\" />"."\n";
+    	}
 	
 		foreach($this->_link as $link)
 		{
