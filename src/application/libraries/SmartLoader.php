@@ -11,7 +11,13 @@
  */
 class SmartLoader
 {
+	/*
+	 * SmartLoaderJS instance
+	 */
 	public $js;
+	/*
+	 * SmartLoaderCSS instance
+	 */
 	public $css;
 	
 	public function __construct()
@@ -20,15 +26,27 @@ class SmartLoader
 		$this->css = new SmartLoaderCSS();
 	}
 }
- 
+/*
+ * SmartLoaderJS Class
+ * Manage your JS into smartloader
+ */
 class SmartLoaderJS 
 {
+	/*
+	 * Contain classic javascript
+	 */
 	private $_jsinline = array('header'=>'','footer'=>'');
+	/*
+	 * Contain jquery code
+	 */
 	private $_jsJquery = array('header'=>'','footer'=>'');
 	
 	private $_links = array();
 	
-	
+	/*
+	 * Add js file url
+	 * @param mixed (String|Array)
+	 */
 	public function add($args)
 	{
 		if(is_array($args))
@@ -44,6 +62,11 @@ class SmartLoaderJS
         }
 	}
 	
+	/*
+	 * Add jquery code
+	 * @param string jquery code
+	 * @param boolean if you want to add this code into header TRUE,not leave blank 
+	 */
 	public function jquery($data,$header=false)
 	{
 		if($header === true)
@@ -57,6 +80,11 @@ class SmartLoaderJS
 		
 	}
 	
+	/*
+	 * Add javascript code
+	 * @param string javascript code
+	 * @param boolean if you want to add this code into header TRUE,not leave blank 
+	 */
 	public function js($data,$header=false)
 	{
 		if($header === true)
@@ -69,6 +97,9 @@ class SmartLoaderJS
 		}
 	}
 	
+	/*
+	 * Output the list of script balise for all js link added
+	 */
 	public function loadLinks()
 	{
 		foreach($this->_links as $link)
@@ -77,6 +108,10 @@ class SmartLoaderJS
 	    }
 	}
 	
+	/*
+	 * Output javascript code
+	 * @param boolean if you want to ouput the header code set TRUE, footer leave blank
+	 */
 	public function loadJavascript($header=false)
     {
     	if($header===true)
@@ -90,7 +125,10 @@ class SmartLoaderJS
         
     }
 }
-
+/*
+ * SmartLoaderCSS Class
+ * Manage your CSS into smartloader
+ */
 class SmartLoaderCSS
 {
     
@@ -101,19 +139,21 @@ class SmartLoaderCSS
 	private $_autoload_folder = "";
 	private $_concat_file = "";
 
-	//
 	private $_link = array();
 	
 	
-	public function SmartLoaderCSS()
+	public function __construct()
 	{
+		// Get CI instance 
 		$this->CI = & get_instance();
 	
+		// load configuration file
 		$this->CI->config->load('smartloader');
-		
+		// get some configuration options
 		$this->_site_folder= $this->CI->config->item('slcss_site_folder');
 		$this->_autoload_folder= $this->CI->config->item('slcss_autoload_folder');
 		$this->_concat_file= $this->CI->config->item('slcss_concat_file');
+		
 		
 		if(ENVIRONMENT == "development")
 		{
@@ -137,6 +177,11 @@ class SmartLoaderCSS
 		}
 	}
 	
+	/*
+	 * Create a css file who contain every autoload css
+	 * @warning if the base file isn't writable
+	 * @params array list of css pathfile
+	 */
 	private function createBaseFile($autoload_link)
 	{
 		if(is_writable($this->_site_folder.$this->_concat_file))
@@ -155,6 +200,10 @@ class SmartLoaderCSS
 		}
 	}
 	
+	/*
+	 * Add css file url
+	 * @param mixed (String|Array)
+	 */
     public function add($args)
     { 
         if(is_array($args))
@@ -169,7 +218,10 @@ class SmartLoaderCSS
             array_push($this->_link, $args);
         }
     }
-
+    
+    /*
+	 * Output the list of script balise for all js link added
+	 */
     public function loadLinks()
     {
 		if(!empty($this->_concat_file))
