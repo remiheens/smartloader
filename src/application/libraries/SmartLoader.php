@@ -4,7 +4,7 @@
  * SmartLoader Library
  *
  * Author : Rémi Heens
- * Site : http://www.remiheens.fr
+ * Site : http://ci.remiheens.fr/smart-loader
  * Version : 1.0
  * Release Date : 14/04/12
  *
@@ -23,8 +23,8 @@ class SmartLoader
  
 class SmartLoaderJS 
 {
-	private $_jsinline = "";
-	private $_jsJquery = "";
+	private $_jsinline = array('header'=>'','footer'=>'');
+	private $_jsJquery = array('header'=>'','footer'=>'');
 	
 	private $_links = array();
 	
@@ -44,14 +44,29 @@ class SmartLoaderJS
         }
 	}
 	
-	public function jquery($data)
+	public function jquery($data,$header=false)
 	{
-		$this->_jsJquery .= $data."\n";
+		if($header === true)
+		{
+			$this->_jsJquery['header'] .= $data."\n";
+		}
+		else
+		{
+			$this->_jsJquery['footer'] .= $data."\n";
+		}
+		
 	}
 	
-	public function js($data)
+	public function js($data,$header=false)
 	{
-		$this->_jsinline .= $data."\n";
+		if($header === true)
+		{
+			$this->_jsinline['header'] .= $data."\n";
+		}
+		else
+		{
+			$this->_jsinline['footer'] .= $data."\n";
+		}
 	}
 	
 	public function loadLinks()
@@ -62,9 +77,17 @@ class SmartLoaderJS
 	    }
 	}
 	
-	public function loadJavascript()
+	public function loadJavascript($header=false)
     {
-        echo "<script type='text/javascript'>\njQuery(document).ready(function($){\n\t".$this->_jsJquery."\n});\n".$this->_jsinline."\n</script>";
+    	if($header===true)
+    	{
+	    	echo "<script type='text/javascript'>\njQuery(document).ready(function($){\n\t".$this->_jsJquery['header']."\n});\n".$this->_jsinline['header']."\n</script>";
+    	}
+    	else
+    	{
+	    	echo "<script type='text/javascript'>\njQuery(document).ready(function($){\n\t".$this->_jsJquery['footer']."\n});\n".$this->_jsinline['footer']."\n</script>";
+    	}
+        
     }
 }
 
@@ -116,13 +139,20 @@ class SmartLoaderCSS
 	
 	private function createBaseFile($autoload_link)
 	{
-		$f = fopen($this->_site_folder.$this->_concat_file,"w+");
-		foreach($autoload_link as $file)
+		if(is_writable($this->_site_folder.$this->_concat_file))
 		{
-			$data = file_get_contents($this->_autoload_folder.$file);
-			fwrite($f,$data);
+			$f = fopen($this->_site_folder.$this->_concat_file,"w+");
+			foreach($autoload_link as $file)
+			{
+				$data = file_get_contents($this->_autoload_folder.$file);
+				fwrite($f,$data);
+			}
+			fclose($f);
 		}
-		fclose($f);
+		else
+		{
+			trigger_error('Can\'t write the concatened file : '.$this->_site_folder.$this->_concat_file);	
+		}
 	}
 	
     public function add($args)
