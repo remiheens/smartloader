@@ -6,9 +6,9 @@ class Welcome extends MY_Controller {
 	{
 		/* want to load a js plugin with css */
 		
-		$this->smartloader->js->loadLib("myplugin");
+		$this->smartloader->js->add("http://localhost/js/myplugin.js");
 		
-		$this->smartloader->css->load("welcome");
+		$this->smartloader->css->add("http://localhost/css/button.css");
 		
 		$this->smartloader->js->jquery('$("#body").css("background-color","red");');
 		
