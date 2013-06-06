@@ -12,59 +12,80 @@ If you know wordpress development, this library works like the wp_enqueue functi
 ## Documentation
 
 The object "SmartLoader" has two objects: "js" and "css", these two attributes are the managers for CSS and Javascript.
-
-	public function setTemplate($tpl);
+```php
+public function setTemplate($tpl);
+```
 set the template folder
-
-	public function getTemplate();
+```php
+public function getTemplate();
+```
 get the template folder
-
-	public function forceHTTP();
+```php
+public function forceHTTP();
+```
 force http because by default output link starts woith "//domain.tld/..."
 
 
 ### JS
-
-	public function setTemplate($tpl);
+```php
+public function setTemplate($tpl);
+```
 set the template name, each js will be loaded into this directory template
-
-	public function forceHTTP();
+```php
+public function forceHTTP();
+```
 force http because by default output link starts woith "//domain.tld/..."
-
-	public function add($args);
+```php
+public function add($args);
+```
 Add js file url or an array of url
-
-	public function loadLib($lib);
+```php
+public function loadLib($lib);
+```
 add a js library juste the name located in template_folder/js/lib/ (see configuration).
-
-	public function jquery($data, $header = false);
+```php
+public function jquery($data, $header = false);
+```
 Add jquery code in header or footer
-
-	public function js($data, $header = false);
+```php
+public function js($data, $header = false);
+```
 Add javascript code in header or footer
-
-	public function load($js_file);
+```php
+public function load($js_file);
+```
 load a js like a view, SmartLoaderJS try to get this file into the configurated js folder (name without .js)
 
-	public function loadLinks();
+```php
+public function loadLinks();
+```
 Output the list of script balise for all js link added
 
-	public function loadJavascript($header = false);
+```php
+public function loadJavascript($header = false);
+```
 Output javascript code
 
 
 ### CSS
-
-	public function setTemplate($tpl);
+```php
+public function setTemplate($tpl);
+```
 set the template name, each js will be loaded into this directory template
 
-	public function forceHTTP();
+```php
+public function forceHTTP();
+```
 force http because by default output link starts woith "//domain.tld/..."
 
-	public function add($args);
+```php
+public function add($args);
+```
 Add css file url
 
-	public function output();
+```php
+public function output();
+```
 Output the link balise ref to css compiled file.
 
 Each CSS added + autoload folder are concatenated to a css file into compiled folder. It wil be regenerated if on file are modify
@@ -82,57 +103,57 @@ __Installation steps__
 * Modify MY_Controller to load your default js and css.
 
 __Controller example__
+```php
+class Welcome extends MY_Controller {
 
-	class Welcome extends MY_Controller {
-
-		public function index()
-		{
-			/* want to load a js plugin with css */
-			
-			$this->smartloader->js->loadLib("myplugin");
-			
-			$this->smartloader->css->load("welcome");
-			
-			$this->smartloader->js->jquery('$("#body").css("background-color","red");');
-			
-			$this->load->view('welcome_message');
-		}
+	public function index()
+	{
+		/* want to load a js plugin with css */
 		
+		$this->smartloader->js->loadLib("myplugin");
+		
+		$this->smartloader->css->load("welcome");
+		
+		$this->smartloader->js->jquery('$("#body").css("background-color","red");');
+		
+		$this->load->view('welcome_message');
 	}
-
+	
+}
+```
 __View example__
 ```html
-	<!DOCTYPE html>
-	<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title>Welcome to CodeIgniter</title>
-		<link href='<?php echo $this->smartloader->css->output(); ?>' rel='stylesheet'/>
-	</head>
-	<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Welcome to CodeIgniter</title>
+	<link href='<?php echo $this->smartloader->css->output(); ?>' rel='stylesheet'/>
+</head>
+<body>
 
-	<div id="container">
-		<h1>Welcome to CodeIgniter!</h1>
+<div id="container">
+	<h1>Welcome to CodeIgniter!</h1>
 
-		<div id="body">
-			<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
+	<div id="body">
+		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
 
-			<p>If you would like to edit this page you'll find it located at:</p>
-			<code>application/views/welcome_message.php</code>
+		<p>If you would like to edit this page you'll find it located at:</p>
+		<code>application/views/welcome_message.php</code>
 
-			<p>The corresponding controller for this page is found at:</p>
-			<code>application/controllers/welcome.php</code>
+		<p>The corresponding controller for this page is found at:</p>
+		<code>application/controllers/welcome.php</code>
 
-			<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="user_guide/">User Guide</a>.</p>
-		</div>
-
-		<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</p>
+		<p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="user_guide/">User Guide</a>.</p>
 	</div>
 
-	<?php echo $this->smartloader->js->loadLinks(); ?>
-	<?php echo $this->smartloader->js->LoadJavascript(); ?>
-	</body>
-	</html>
+	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</p>
+</div>
+
+<?php echo $this->smartloader->js->loadLinks(); ?>
+<?php echo $this->smartloader->js->LoadJavascript(); ?>
+</body>
+</html>
 ```
 __Specifiy CSS Variable__
 
