@@ -101,6 +101,7 @@ __Controller example__
 	}
 
 __View example__
+<pre>
 	<!DOCTYPE html>
 	<html lang="en">
 	<head>
@@ -132,7 +133,7 @@ __View example__
 	<?php echo $this->smartloader->js->LoadJavascript(); ?>
 	</body>
 	</html>
-
+</pre>
 __Specifiy CSS Variable__
 
 Go to your configuration file config/smartloader.php and you can specify variable who will be replaced by its value in your css file. 
