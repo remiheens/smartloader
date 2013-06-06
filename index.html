@@ -4,29 +4,40 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>Smartloader by remiheens</title>
-
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="javascripts/scale.fix.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
   </head>
   <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/remiheens/SmartLoader">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/remiheens/SmartLoader/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/remiheens/SmartLoader/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
     <div class="wrapper">
-      <header>
-        <h1>Smartloader</h1>
-        <p>Code Igniter Library to manage CSS &amp; JS</p>
-        <p class="view"><a href="https://github.com/remiheens/SmartLoader">View the Project on GitHub <small>remiheens/SmartLoader</small></a></p>
-        <ul>
-          <li><a href="https://github.com/remiheens/SmartLoader/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/remiheens/SmartLoader/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/remiheens/SmartLoader">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
+
       <section>
+        <div id="title">
+          <h1>Smartloader</h1>
+          <p>Code Igniter Library to manage CSS &amp; JS</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/remiheens">remiheens</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
+        </div>
+
         <p>When you have lot of js &amp; css to include dynamically, it’s difficult and complex. With SmartLoader, you have some functions to enqueue code or links in controllers and you just have to output the queue in your footer.</p>
 
 <p>If you know wordpress development, this library works like the wp_enqueue function. In your controller, you can enqueue some js and css link, and output this in footer.</p>
@@ -196,12 +207,19 @@ The files will be sorted according to their names. Therefore renamed like 0-base
 
 <p>Go to your configuration file config/smartloader.php and you can specify variable who will be replaced by its value in your css file. </p>
       </section>
+
     </div>
-    <footer>
-      <p>Project maintained by <a href="https://github.com/remiheens">remiheens</a></p>
-      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
-    </footer>
     <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-41518311-2");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
   </body>
 </html>
