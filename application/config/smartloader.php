@@ -27,21 +27,25 @@ $config['sl_site_folder'] = $_SERVER['DOCUMENT_ROOT'].'/SmartLoader/';
 $config['sljs_js_folder'] = 'js/views';
 
 /*
- * js_folder : the path to your javascript folder (index.php folder)
+ * template_folder : folder name who contains your templates 
  */
 $config['sl_template_folder'] = 'tpl';
 
 /*
- * js_folder : the path to your javascript folder (index.php folder)
+ * template_name : the default template name
  */
 $config['sl_template_name'] = 'default';
 
 /*
- * js_folder : the path to your javascript folder (index.php folder)
+ * js_template_domain : from which domain would you load statics files
  */
 $config['sl_template_domain'] = 'localhost/SmartLoader';
+
 /*
- * js_folder : the path to your javascript folder (index.php folder)
+ * compile_rule : you can set "variables" who will be replaced by its value
+ * h1{
+ *	color: __RED__;
+ * }
  */
 $config['slcss_compile_rule'] = array(
     '/__RED__/' => '#f00',
