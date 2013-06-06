@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Smartloader by remiheens</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Smartloader</h1>
+        <p>Code Igniter Library to manage CSS &amp; JS</p>
+        <p class="view"><a href="https://github.com/remiheens/SmartLoader">View the Project on GitHub <small>remiheens/SmartLoader</small></a></p>
+        <ul>
+          <li><a href="https://github.com/remiheens/SmartLoader/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/remiheens/SmartLoader/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/remiheens/SmartLoader">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p>When you have lot of js &amp; css to include dynamically, it’s difficult and complex. With SmartLoader, you have some functions to enqueue code or links in controllers and you just have to output the queue in your footer.</p>
+
+<p>If you know wordpress development, this library works like the wp_enqueue function. In your controller, you can enqueue some js and css link, and output this in footer.</p>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<ul>
+<li>Configure settings in "conf/smartloader.php"</li>
+<li>Autoload the library in "conf/autoload.php"</li>
+<li>Modify MY_Controller to load your default js and css.</li>
+</ul><h2>
+<a name="documentation" class="anchor" href="#documentation"><span class="octicon octicon-link"></span></a>Documentation</h2>
+
+<p>The object "SmartLoader" has two objects: "js" and "css", these two attributes are the managers for CSS and Javascript.</p>
+
+<div class="highlight"><pre><span class="k">public</span> <span class="k">function</span> <span class="nf">setTemplate</span><span class="p">(</span><span class="nv">$tpl</span><span class="p">);</span>
+</pre></div>
+
+<p>set the template folder</p>
+
+<div class="highlight"><pre><span class="k">public</span> <span class="k">function</span> <span class="nf">getTemplate</span><span class="p">();</span>
+</pre></div>
+
+<p>get the template folder</p>
+
+<div class="highlight"><pre><span class="k">public</span> <span class="k">function</span> <span class="nf">forceHTTP</span><span class="p">();</span>
+</pre></div>
+
+<p>force http because by default output link starts woith "//domain.tld/..."</p>
+
+<h3>
+<a name="js" class="anchor" href="#js"><span class="octicon octicon-link"></span></a>JS</h3>
+
+<div class="highlight"><pre><span class="k">public</span> <span class="k">function</span> <span class="nf">setTemplate</span><span class="p">(</span><span class="nv">$tpl</span><span class="p">);</span>
+</pre></div>
+
+<p>set the template name, each js will be loaded into this directory template</p>
+
+<div class="highlight"><pre><span class="k">public</span> <span class="k">function</span> <span class="nf">forceHTTP</span><span class="p">();</span>
+</pre></div>
+
+<p>force http because by default output link starts woith "//domain.tld/..."</p>
+
+<div class="highlight"><pre><span class="k">public</span> <span class="k">function</span> <span class="nf">add</span><span class="p">(</span><span class="nv">$args</span><span class="p">);</span>
+</pre></div>
+
+<p>Add js file url or an array of url</p>
+
+<div class="highlight"><pre><span class="k">public</span> <span class="k">function</span> <span class="nf">loadLib</span><span class="p">(</span><span class="nv">$lib</span><span class="p">);</span>
+</pre></div>
+
+<p>add a js library juste the name located in template_folder/js/lib/ (see configuration).</p>
+
+<div class="highlight"><pre><span class="k">public</span> <span class="k">function</span> <span class="nf">jquery</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="nv">$header</span> <span class="o">=</span> <span class="k">false</span><span class="p">);</span>
+</pre></div>
+
+<p>Add jquery code in header or footer</p>
+
+<div class="highlight"><pre><span class="k">public</span> <span class="k">function</span> <span class="nf">js</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span> <span class="nv">$header</span> <span class="o">=</span> <span class="k">false</span><span class="p">);</span>
+</pre></div>
+
+<p>Add javascript code in header or footer</p>
+
+<div class="highlight"><pre><span class="k">public</span> <span class="k">function</span> <span class="nf">load</span><span class="p">(</span><span class="nv">$js_file</span><span class="p">);</span>
+</pre></div>
+
+<p>load a js like a view, SmartLoaderJS try to get this file into the configurated js folder (name without .js)</p>
+
+<div class="highlight"><pre><span class="k">public</span> <span class="k">function</span> <span class="nf">loadLinks</span><span class="p">();</span>
+</pre></div>
+
+<p>Output the list of script balise for all js link added</p>
+
+<div class="highlight"><pre><span class="k">public</span> <span class="k">function</span> <span class="nf">loadJavascript</span><span class="p">(</span><span class="nv">$header</span> <span class="o">=</span> <span class="k">false</span><span class="p">);</span>
+</pre></div>
+
+<p>Output javascript code</p>
+
+<h3>
+<a name="css" class="anchor" href="#css"><span class="octicon octicon-link"></span></a>CSS</h3>
+
+<div class="highlight"><pre><span class="k">public</span> <span class="k">function</span> <span class="nf">setTemplate</span><span class="p">(</span><span class="nv">$tpl</span><span class="p">);</span>
+</pre></div>
+
+<p>set the template name, each js will be loaded into this directory template</p>
+
+<div class="highlight"><pre><span class="k">public</span> <span class="k">function</span> <span class="nf">forceHTTP</span><span class="p">();</span>
+</pre></div>
+
+<p>force http because by default output link starts woith "//domain.tld/..."</p>
+
+<div class="highlight"><pre><span class="k">public</span> <span class="k">function</span> <span class="nf">add</span><span class="p">(</span><span class="nv">$args</span><span class="p">);</span>
+</pre></div>
+
+<p>Add css file url</p>
+
+<div class="highlight"><pre><span class="k">public</span> <span class="k">function</span> <span class="nf">output</span><span class="p">();</span>
+</pre></div>
+
+<p>Output the link balise ref to css compiled file.</p>
+
+<p>Each CSS added + autoload folder are concatenated to a css file into compiled folder. It wil be regenerated if on file are modify</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>There is a configuration file: conf/smartloader.php. Where you find some configuration for the autoload of css. Indeed, the library autoload css file in a directory and concat this to output in one css file.
+The files will be sorted according to their names. Therefore renamed like 0-base.css, 1-style.css, etc..</p>
+
+<p><strong>Controller example</strong></p>
+
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Welcome</span> <span class="k">extends</span> <span class="nx">MY_Controller</span> <span class="p">{</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="cm">/* want to load a js plugin with css */</span>
+
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">smartloader</span><span class="o">-&gt;</span><span class="na">js</span><span class="o">-&gt;</span><span class="na">loadLib</span><span class="p">(</span><span class="s2">"myplugin"</span><span class="p">);</span>
+
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">smartloader</span><span class="o">-&gt;</span><span class="na">css</span><span class="o">-&gt;</span><span class="na">load</span><span class="p">(</span><span class="s2">"welcome"</span><span class="p">);</span>
+
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">smartloader</span><span class="o">-&gt;</span><span class="na">js</span><span class="o">-&gt;</span><span class="na">jquery</span><span class="p">(</span><span class="s1">'$("#body").css("background-color","red");'</span><span class="p">);</span>
+
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load</span><span class="o">-&gt;</span><span class="na">view</span><span class="p">(</span><span class="s1">'welcome_message'</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+
+<p><strong>View example</strong></p>
+
+<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Welcome to CodeIgniter<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">'&lt;?php echo $this-&gt;smartloader-&gt;css-&gt;output(); ?&gt;'</span> <span class="na">rel=</span><span class="s">'stylesheet'</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>Welcome to CodeIgniter!<span class="nt">&lt;/h1&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"body"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p&gt;</span>The page you are looking at is being generated dynamically by CodeIgniter.<span class="nt">&lt;/p&gt;</span>
+
+        <span class="nt">&lt;p&gt;</span>If you would like to edit this page you'll find it located at:<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;code&gt;</span>application/views/welcome_message.php<span class="nt">&lt;/code&gt;</span>
+
+        <span class="nt">&lt;p&gt;</span>The corresponding controller for this page is found at:<span class="nt">&lt;/p&gt;</span>
+        <span class="nt">&lt;code&gt;</span>application/controllers/welcome.php<span class="nt">&lt;/code&gt;</span>
+
+        <span class="nt">&lt;p&gt;</span>If you are exploring CodeIgniter for the very first time, you should start by reading the <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"user_guide/"</span><span class="nt">&gt;</span>User Guide<span class="nt">&lt;/a&gt;</span>.<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;p</span> <span class="na">class=</span><span class="s">"footer"</span><span class="nt">&gt;</span>Page rendered in <span class="nt">&lt;strong&gt;</span>{elapsed_time}<span class="nt">&lt;/strong&gt;</span> seconds<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="cp">&lt;?php echo $this-&gt;smartloader-&gt;js-&gt;loadLinks(); ?&gt;</span>
+<span class="cp">&lt;?php echo $this-&gt;smartloader-&gt;js-&gt;LoadJavascript(); ?&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+
+<p><strong>Specifiy CSS Variable</strong></p>
+
+<p>Go to your configuration file config/smartloader.php and you can specify variable who will be replaced by its value in your css file. </p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/remiheens">remiheens</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
