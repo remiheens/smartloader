@@ -9,6 +9,11 @@ If you know wordpress development, this library works like the wp_enqueue functi
 
 ## Installation 
 
+* Configure settings in "conf/smartloader.php"
+* Autoload the library in "conf/autoload.php"
+* Modify MY_Controller to load your default js and css.
+
+
 ## Documentation
 
 The object "SmartLoader" has two objects: "js" and "css", these two attributes are the managers for CSS and Javascript.
@@ -93,14 +98,8 @@ Each CSS added + autoload folder are concatenated to a css file into compiled fo
 
 ## Usage
 
-There is a configuration file: conf/smartloader.php. Where you find some configuration for the autoload of css. Indeed, the library autoload css file in a directory and concat this to ouput in one css file.
+There is a configuration file: conf/smartloader.php. Where you find some configuration for the autoload of css. Indeed, the library autoload css file in a directory and concat this to output in one css file.
 The files will be sorted according to their names. Therefore renamed like 0-base.css, 1-style.css, etc..
-
-__Installation steps__
-
-* Configure settings in "conf/smartloader.php"
-* Autoload the library in "conf/autoload.php"
-* Modify MY_Controller to load your default js and css.
 
 __Controller example__
 ```php
