@@ -2,7 +2,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/remiheens/smartloader/version.png)](https://packagist.org/packages/remiheens/smartloader) 
 [![Total Downloads](https://poser.pugx.org/remiheens/smartloader/d/total.png)](https://packagist.org/packages/remiheens/smartloader)
-[![Build Status](https://travis-ci.org/remiheens/SmartLoader.png)](https://travis-ci.org/remiheens/SmartLoader)
+[![Build Status](https://travis-ci.org/remiheens/SmartLoader.png)](https://travis-ci.org/remiheens/smartloader)
 
 SmartLoader is a library that allows you to easily manage your js and css on your site.
 
