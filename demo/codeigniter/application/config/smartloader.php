@@ -8,7 +8,7 @@ $configuration->setAutoloadCSSDirectory('autoload');
 $configuration->setJsViewsDirectory('js/views');
 $configuration->setTemplatesDirectory('tpl');
 $configuration->setDefaultTemplateName('v3');
-$configuration->setStaticDomain('localhost/tuto.com/Library/SmartLoader/demo/static/');
+$configuration->setStaticDomain('localhost/smartloader/demo/static/');
 $configuration->setEnvironment(ENVIRONMENT);
 
 $configuration->setCompilationRules(array(

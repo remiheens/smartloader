@@ -21,6 +21,9 @@
         "phpunit/phpunit" : "~3.7",
         "sami/sami": "v1.2"
     },
+    "suggest":{
+        "symfony/dependency-injection": "v2.3.6"
+    },
     "autoload": {
         "psr-0": {
             "SmartLoader": "src"
