@@ -16,7 +16,7 @@ Add
 ```
 {
     "require": {
-        "remiheens/smartloader": "2.*"
+        "remiheens/smartloader": "2.0.*@dev"
     }
 }
 ```
