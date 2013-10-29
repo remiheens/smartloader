@@ -1,6 +1,6 @@
 {
     "name": "remiheens/smartloader",
-    "version": "1.0",
+    "version": "2.0",
     "type": "library",
     "description": "Library to manage JS and CSS in template",
     "keywords": ["template manager","css","js"],
