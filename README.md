@@ -1,5 +1,9 @@
 # SmartLoader
 
+[![Latest Stable Version](https://poser.pugx.org/remiheens/smartloader/version.png)](https://packagist.org/packages/remiheens/smartloader) 
+[![Total Downloads](https://poser.pugx.org/remiheens/smartloader/d/total.png)](https://packagist.org/packages/remiheens/smartloader)
+[![Build Status](https://travis-ci.org/remiheens/SmartLoader.png)](https://travis-ci.org/remiheens/SmartLoader)
+
 SmartLoader is a library that allows you to easily manage your js and css on your site.
 
 When you have lot of js & css to include dynamically, it’s difficult and complex. With SmartLoader, you have some functions to enqueue code or links in controllers and you just have to output the queue in your footer.
