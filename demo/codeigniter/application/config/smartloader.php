@@ -3,7 +3,6 @@ $config['smartloader_configuration'] = '';
 
 $configuration = new \SmartLoader\Configuration();
 $configuration->setStaticDirectory(FCPATH.'../static');
-$configuration->setConcatenedCSSFilename('base.css');
 $configuration->setAutoloadCSSDirectory('autoload');
 $configuration->setJsViewsDirectory('js/views');
 $configuration->setTemplatesDirectory('tpl');

@@ -39,6 +39,8 @@ class SmartLoader
     {
         $this->js = new \SmartLoader\Component\JS($config);
         $this->css = new \SmartLoader\Component\CSS($config);
+        
+        $this->template = $config->getDefaultTemplateName();
     }
 
     /**

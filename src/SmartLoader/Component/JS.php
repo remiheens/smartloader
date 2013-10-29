@@ -239,7 +239,7 @@ class JS implements IComponent
 
             $str = $this->_getFooter();
         }
-        echo $str;
+        return $str;
         //echo $start.$str.$end;
     }
 
@@ -247,28 +247,20 @@ class JS implements IComponent
     {
 
         $str = '';
-        $start = '';
-        $end = '';
-
-        if(!empty($this->_jsinline['footer']) || !empty($this->_jsJquery['footer']))
-        {
-            $start = "<script type='text/javascript'>\n";
-        }
+        
+        $start = "<script type='text/javascript'>";
 
         if(!empty($this->_jsJquery['footer']))
         {
-            $str .= "jQuery(document).ready(function($){\n\t" . $this->_jsJquery['footer'] . "\n});\n";
+            $str .= "\njQuery(document).ready(function($){\n\t" . $this->_jsJquery['footer'] . "\n});";
         }
 
         if(!empty($this->_jsinline['footer']))
         {
-            $str .= $this->_jsinline['footer'];
+            $str .= "\n".$this->_jsinline['footer'];
         }
 
-        if(!empty($this->_jsinline['footer']) || !empty($this->_jsJquery['footer']))
-        {
-            $end = "\n</script>\n";
-        }
+        $end = "</script>";
         return $start . $str . $end;
     }
 
