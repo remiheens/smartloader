@@ -10,6 +10,18 @@ When you have lot of js & css to include dynamically, it’s difficult and compl
 
 If you know wordpress development, this library works like the wp_enqueue function. In your controller, you can enqueue some js and css link, and output this in footer.
 
+## Installation
+Create ```composer.json``` file
+Add
+```
+{
+    "require": {
+        "remiheens/smartloader": "2.*"
+    }
+}
+```
+
+
 ## Documentation
 
 The object "SmartLoader" has two objects: "js" and "css", these two attributes are the managers for CSS and Javascript.
