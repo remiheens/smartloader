@@ -67,7 +67,7 @@ class Configuration
 
     public function getJsViewsDirectory()
     {
-        return $this->js_viewsDirectory;
+        return $this->jsViewsDirectory;
     }
 
     public function setJsViewsDirectory($jsViewsDirectory)
