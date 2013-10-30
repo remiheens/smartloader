@@ -70,6 +70,42 @@ class CSS implements IComponent
             }
         }
     }
+    
+    /**
+     * Add css file url
+     * @param mixed (String|Array)
+     */
+    public function loadView($args)
+    {
+        if(is_array($args))
+        {
+            foreach($args as $a)
+            {
+                array_push($this->_link, $a);
+            }
+        }
+        else
+        {
+            array_push($this->_link, $args);
+        }
+    }
+
+    /**
+     * Output the list of script balise for all css link added
+     */
+    public function headerOutput()
+    {
+        $compiled_name = $this->compile(md5(implode('-', $this->_link)));
+        $css = $this->_protocol . "//" . $this->config->getStaticDomain() . '/' . $this->config->getTemplatesDirectory() . '/' . $this->config->getDefaultTemplateName() . '/css/compiled/' . $compiled_name . '.css';
+        return '<link href="'.$css.'" rel="stylesheet" type="text/css" media="all" />';
+    }
+    
+    public function footerOutput()
+    {
+        return '';
+    }
+    
+    
 
     /**
      * Create a css file who contain every autoload css
@@ -101,33 +137,6 @@ class CSS implements IComponent
         }
     }
 
-    /**
-     * Add css file url
-     * @param mixed (String|Array)
-     */
-    public function load($args)
-    {
-        if(is_array($args))
-        {
-            foreach($args as $a)
-            {
-                array_push($this->_link, $a);
-            }
-        }
-        else
-        {
-            array_push($this->_link, $args);
-        }
-    }
-
-    /**
-     * Output the list of script balise for all css link added
-     */
-    public function output()
-    {
-        $compiled_name = $this->compile(md5(implode('-', $this->_link)));
-        return $this->_protocol . "//" . $this->config->getStaticDomain() . '/' . $this->config->getTemplatesDirectory() . '/' . $this->config->getDefaultTemplateName() . '/css/compiled/' . $compiled_name . '.css';
-    }
 
     /**
      * compile css file with rule define in configuration file

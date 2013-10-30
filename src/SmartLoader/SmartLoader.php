@@ -76,14 +76,16 @@ class SmartLoader
 
     public function header()
     {
-        $str = '<link href="'.$this->css->output().'" rel="stylesheet" type="text/css" media="all" />';
-        $str .= $this->js->loadJavascript(true);
+        $str = $this->css->headerOutput();
+        $str .= $this->js->headerOutput();
         return $str;
     }
     
     public function footer()
     {
-        return $this->js->loadJavascript(false);
+        $str = $this->css->footerOutput();
+        $str .= $this->js->footerOutput();
+        return $str;
     }
     
 }

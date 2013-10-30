@@ -29,5 +29,5 @@
             "SmartLoader": "src"
         }
     },
-    "bin": ["bin/smartloader.php"]
+    "bin": ["smartloader.php"]
 }

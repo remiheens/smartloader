@@ -1,7 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-
 class Welcome extends CI_Controller {
 
 	/**
@@ -21,7 +19,10 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-            $this->smartloader->css->load('welcome');
+            $this->smartloader->js->addUrl('//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js',1000,true);
+            $this->smartloader->css->loadView('welcome');
+            $this->smartloader->js->loadView('welcome');
+            $this->smartloader->js->addLibrary('jquery.test.js');
             $this->load->view('welcome_message');
 	}
 }

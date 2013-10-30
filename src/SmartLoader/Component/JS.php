@@ -30,24 +30,8 @@ class JS implements IComponent
      * @access private
      * @var array
      */
-    private $_links = array();
-    private $_linksHeader = array();
-
-    /*
-     * all external loaded links
-     * @access private
-     * @var array
-     */
-    private $_root = array();
-
-    /*
-     * all loaded lib
-     * @access private
-     * @var array
-     */
-    private $_libs = array();
-    private $_libsHeader = array();
-
+    private $_links = array('header'=>array(), 'footer'=>array());
+    
     /*
      * the template name
      * @access private
@@ -88,54 +72,58 @@ class JS implements IComponent
         }
     }
 
-    public function root($args)
+    /**
+     * load a js like a view
+     * SmartLoaderJS try to get this file into the configurated js folder
+     * @param string $js_file the js file to load without .js extension
+     */
+    public function loadView($js_file)
     {
-        if(is_array($args))
+        if(is_array($js_file))
         {
-            foreach($args as $a)
+            $data = '';
+            foreach($js_file as $js)
             {
-                if(!in_array($a, $this->_root))
-                {
-                    array_push($this->_root, $a);
-                }
+                $file = $this->config->getStaticDirectory() . '/' . $this->config->getTemplatesDirectory() . '/' . $this->config->getDefaultTemplateName() . '/' . $this->config->getJsViewsDirectory() . '/' . $js . '.js';
+                $data .= file_get_contents($file) . "\n";
             }
         }
         else
         {
-            if(!in_array($args, $this->_root))
-            {
-                array_push($this->_root, $args);
-            }
+            $file = $this->config->getStaticDirectory() . '/' . $this->config->getTemplatesDirectory() . '/' . $this->config->getDefaultTemplateName() . '/' . $this->config->getJsViewsDirectory() . '/' . $js_file . '.js';
+            $data = file_get_contents($file);
         }
+        $this->js($data);
     }
-
+    
     /**
      * Add js file url
      * @access public
      * @param mixed (String|Array)
      */
-    public function add($args, $header = false)
+    public function addURL($url,$priority = 0, $header = false)
     {
-        $array = &$this->_links;
+        $array = &$this->_links['footer'];
         if($header === true)
         {
-            $array = &$this->_linksHeader;
+            $array = &$this->_links['header'];
         }
-        if(is_array($args))
-        {
-            foreach($args as $a)
+        
+        if(isset($url) && !empty($url))
+        { 
+            if(isset($array[$priority]))
             {
-                if(!in_array($a, $array))
-                {
-                    array_push($array, $a);
-                }
+                // split array
+                $first = array_slice($array, 0, $priority);
+                $second = array_slice($array, $priority);
+
+                $tmp = array_merge(array(), $first);
+                $tmp[$priority] = $url;
+                $array = array_merge($tmp, $second);
             }
-        }
-        else
-        {
-            if(!in_array($args, $array))
+            else
             {
-                array_push($array, $args);
+                $array[$priority] = $url;
             }
         }
     }
@@ -145,24 +133,32 @@ class JS implements IComponent
      * @access public
      * @param mixed (String|Array)
      */
-    public function loadLib($lib, $header = false)
+    public function addLibrary($lib, $priority = 0, $header = false)
     {
-        $array = &$this->_libs;
+        $array = &$this->_links['footer'];
         if($header === true)
         {
-            $array = &$this->_libsHeader;
+            $array = &$this->_links['header'];
         }
-
-        if(is_array($lib))
-        {
-            foreach($lib as $a)
+        
+        if(isset($lib) && !empty($lib))
+        { 
+            $lib = $this->_protocol.'//'.$this->config->getStaticDomain().'/'.$this->config->getTemplatesDirectory().'/common/js/'.$lib;
+         
+            if(isset($array[$priority]))
             {
-                array_push($array, $a);
+                // split array
+                $first = array_slice($array, 0, $priority);
+                $second = array_slice($array, $priority);
+
+                $tmp = array_merge(array(), $first);
+                $tmp[$priority] = $lib;
+                $array = array_merge($tmp, $second);
             }
-        }
-        else
-        {
-            array_push($array, $lib);
+            else
+            {
+                $array[$priority] = $lib;
+            }
         }
     }
 
@@ -201,130 +197,44 @@ class JS implements IComponent
             $this->_jsinline['footer'] .= $data . "\n";
         }
     }
+    
 
-    /**
-     * Output the list of script balise for all js link added
-     */
-    public function loadLinks()
+    public function headerOutput()
     {
-
-        foreach($this->_root as $link)
-        {
-            echo "<script type=\"text/javascript\" src=\"" . $this->_protocol . $link . "\"></script>\n";
-        }
-
-        foreach($this->_libs as $lib)
-        {
-            echo "<script type=\"text/javascript\" src=\"" . $this->_protocol . "//" . $this->config->getStaticDomain() . '/' . $this->config->getDefaultTemplateName() . '/common/js/' . $lib . ".js\"></script>\n";
-        }
-
-        foreach($this->_links as $link)
-        {
-            echo "<script type=\"text/javascript\" src=\"" . $this->_protocol . $link . "\"></script>\n";
-        }
+        return $this->_output('header');
     }
-
-    /**
-     * Output javascript code
-     * @param boolean output the header code set TRUE, footer leave blank
-     */
-    public function loadJavascript($header = false)
+    
+    public function footerOutput()
     {
-        if($header === true)
-        {
-            $str = $this->_getHeader();
-        }
-        else
-        {
-
-            $str = $this->_getFooter();
-        }
-        return $str;
-        //echo $start.$str.$end;
+        return $this->_output('footer');
     }
-
-    private function _getFooter()
+    
+    private function _output($type)
     {
+        $libs = '';
+        ksort($this->_links[$type]);
+        $this->_links[$type] = array_reverse($this->_links[$type]);
+        foreach($this->_links[$type] as $lib)
+        {
+            $libs .= "<script type=\"text/javascript\" src=\"" . $lib . "\"></script>\n";
+        }
 
         $str = '';
         
         $start = "<script type='text/javascript'>";
 
-        if(!empty($this->_jsJquery['footer']))
+        if(!empty($this->_jsJquery[$type]))
         {
-            $str .= "\njQuery(document).ready(function($){\n\t" . $this->_jsJquery['footer'] . "\n});";
+            $str .= "\njQuery(document).ready(function($){\n\t" . $this->_jsJquery[$type] . "\n});";
         }
 
-        if(!empty($this->_jsinline['footer']))
+        if(!empty($this->_jsinline[$type]))
         {
-            $str .= "\n".$this->_jsinline['footer'];
+            $str .= "\n".$this->_jsinline[$type];
         }
 
         $end = "</script>";
-        return $start . $str . $end;
-    }
-
-    private function _getHeader()
-    {
-        $libs = '';
-        foreach($this->_linksHeader as $lib)
-        {
-            $libs .= "<script type=\"text/javascript\" src=\"" . $lib . "\"></script>\n";
-        }
-        foreach($this->_libsHeader as $lib)
-        {
-            $libs .= "<script type=\"text/javascript\" src=\"" . $this->_protocol . "//" . $this->config->getStaticDomain() . '/' . $this->config->getDefaultTemplateName()  . '/common/js/' . $lib . ".js\"></script>\n";
-        }
-
-        $str = '';
-        $start = '';
-        $end = '';
-        if(!empty($this->_jsinline['header']) || !empty($this->_jsJquery['header']))
-        {
-            $start = "<script type='text/javascript'>\n";
-        }
-
-        if(!empty($this->_jsJquery['header']))
-        {
-            $str .= "jQuery(document).ready(function($){\n\t" . $this->_jsJquery['header'] . "\n});\n";
-        }
-
-        if(!empty($this->_jsinline['header']))
-        {
-            $str .= $this->_jsinline['header'];
-        }
-
-        if(!empty($this->_jsinline['header']) || !empty($this->_jsJquery['header']))
-        {
-            $end = "\n</script>\n";
-        }
-
         return $libs . $start . $str . $end;
     }
-
-    /**
-     * load a js like a view
-     * SmartLoaderJS try to get this file into the configurated js folder
-     * @param string $js_file the js file to load without .js extension
-     */
-    public function load($js_file)
-    {
-        if(is_array($js_file))
-        {
-            $data = '';
-            foreach($js_file as $js)
-            {
-                $file = $this->config->getStaticDirectory() . '/' . $this->config->getTemplatesDirectory() . '/' . $this->config->getDefaultTemplateName() . '/' . $this->config->getJsViewsDirectory() . '/' . $js . '.js';
-                $data .= file_get_contents($file) . "\n";
-            }
-        }
-        else
-        {
-            $file = $this->config->getStaticDirectory() . '/' . $this->config->getTemplatesDirectory() . '/' . $this->config->getDefaultTemplateName() . '/' . $this->config->getJsViewsDirectory() . '/' . $js_file . '.js';
-            $data = file_get_contents($file);
-        }
-        $this->js($data);
-    }
-
 }
 

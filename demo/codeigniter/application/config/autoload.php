@@ -40,7 +40,7 @@
 $autoload['packages'] = array();
 
 /* composer support */
-require_once APPPATH.'/../../../vendor/autoload.php';
+require_once FCPATH.'../../vendor/autoload.php';
 
 /*
 | -------------------------------------------------------------------
