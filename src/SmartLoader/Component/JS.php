@@ -215,7 +215,7 @@ class JS implements IComponent
 
         foreach($this->_libs as $lib)
         {
-            echo "<script type=\"text/javascript\" src=\"" . $this->_protocol . "//" . $this->_tpl_domain . '/' . $this->_tpl_folder . '/common/js/' . $lib . ".js\"></script>\n";
+            echo "<script type=\"text/javascript\" src=\"" . $this->_protocol . "//" . $this->config->getStaticDomain() . '/' . $this->config->getDefaultTemplateName() . '/common/js/' . $lib . ".js\"></script>\n";
         }
 
         foreach($this->_links as $link)
@@ -273,7 +273,7 @@ class JS implements IComponent
         }
         foreach($this->_libsHeader as $lib)
         {
-            $libs .= "<script type=\"text/javascript\" src=\"" . $this->_protocol . "//" . $this->_tpl_domain . '/' . $this->_tpl_folder . '/common/js/' . $lib . ".js\"></script>\n";
+            $libs .= "<script type=\"text/javascript\" src=\"" . $this->_protocol . "//" . $this->config->getStaticDomain() . '/' . $this->config->getDefaultTemplateName()  . '/common/js/' . $lib . ".js\"></script>\n";
         }
 
         $str = '';
